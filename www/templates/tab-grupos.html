@@ -1,0 +1,31 @@
+<ion-view view-title="Grupos">
+    <ion-content>
+
+        <div class="row">
+            <div class="col">
+                Hacer
+                <select id="num_grupos" ng-model="$parent.num_grupos">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select> 
+                grupos de mínimo {{ Math.floor(numPersonas() / $parent.num_grupos)}} personas
+            </div>
+            <div class="col">    
+                <button type="button" class="button button-positive" ng-click="hacerGrupos();">Hacer grupos</button>
+            </div>
+        </div>
+
+        <div class="card" ng-repeat="grupo in grupos">
+            <div class="item item-divider">Grupo {{$index + 1}}</div>
+            <div class="item item-text-wrap">
+                 <div class="item item-text-wrap" ng-repeat="hermano in grupo" ng-class="{ 'bg-success': $first }">{{ hermano.nombre}}</div>
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

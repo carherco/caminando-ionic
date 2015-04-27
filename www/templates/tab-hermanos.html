@@ -1,0 +1,117 @@
+<ion-view view-title="Hermanos">
+    <ion-content class="padding">
+
+        <div id="total_hermanos" class="row">
+            <div class="col-sm-4">
+                {{ numPersonas()}} hermanos para hacer grupos.
+            </div>
+        </div>
+
+        <div class="list card">
+
+            <div class="item item-divider">
+                <h3 class="panel-title">Matrimonios
+                    <button type="button" class="btn btn-success" ng-click="showMatrimonioForm = !showMatrimonioForm"><i class="fa fa-plus"></i> +</button>
+                </h3>
+            </div>
+
+            <form name="matrimonioForm" ng-submit="addMatrimonio()" ng-show="showMatrimonioForm">
+                <!--  Review Form -->
+                <fieldset class="form-group">
+                    <input type="text" ng-model="matrimonio_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
+                    <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
+                </fieldset>
+            </form>
+
+            <ion-list>
+                <ion-item ng-repeat="matrimonio in matrimonios" class="item-button-right">
+                    {{ matrimonio.nombre}}
+                    &nbsp;
+                    <div class="buttons">
+                        <button type="button" class="button icon ion-log-out button-energized" ng-click="ausentarMatrimonio($index)"></button>
+                        <button type="button" class="button icon ion-close button-assertive" ng-click="deleteMatrimonio($index)"></button>
+                    </div>
+                </ion-item>
+            </ion-list>
+
+            <div class="item item-divider">
+                {{ matrimonios.length }} matrimonios en total
+            </div>    
+                
+        </div>          
+                
+                
+                
+                
+        <div class="list card">
+
+            <div class="item item-divider">
+                <h3 class="panel-title">Solteros
+                    <button type="button" class="btn btn-success" ng-click="showSolteroForm=!showSolteroForm"><i class="fa fa-plus"></i> +</button>
+                </h3>
+            </div>
+
+            <form name="solteroForm" ng-submit="addSoltero()" ng-show="showSolteroForm">
+                <fieldset class="form-group">
+                  <input type="text" ng-model="soltero_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
+                  <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
+                </fieldset>
+              </form>
+
+            <ion-list>
+                <ion-item ng-repeat="soltero in solteros" class="item-button-right">
+                    {{ soltero.nombre}}
+                    &nbsp;
+                    <div class="buttons">
+                        <button type="button" class="button icon ion-log-out button-energized" ng-click="ausentarSoltero($index)"></button>
+                        <button type="button" class="button icon ion-close button-assertive" ng-click="deleteSoltero($index)"></button>
+                    </div>
+                </ion-item>
+            </ion-list>
+
+            <div class="item item-divider">
+                {{ solteros.length }} solteros en total
+            </div>    
+                
+        </div>          
+                        
+
+                            
+        <div class="list card">
+
+            <div class="item item-divider">
+                <h3 class="panel-title">Ausentes</h3>
+            </div>
+
+            <form name="solteroForm" ng-submit="addSoltero()" ng-show="showSolteroForm">
+                <fieldset class="form-group">
+                  <input type="text" ng-model="soltero_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
+                  <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
+                </fieldset>
+              </form>
+
+            <ion-list>
+                <ion-item ng-repeat="ausente in ausentes" class="item-button-right">
+                    {{ ausente.nombre }}
+                    &nbsp;
+                    <div class="buttons">
+                        <button type="button" class="button icon ion-log-in button-balanced" ng-click="desAusentar($index)"></button>
+                        <button type="button" class="button icon ion-close button-assertive" ng-click="deleteAusente($index)"></button>
+                    </div>
+                </ion-item>
+            </ion-list>
+
+        </div>                   
+
+               
+
+            
+
+      
+      
+      
+      
+      
+  
+  </ion-content>
+</ion-view>
