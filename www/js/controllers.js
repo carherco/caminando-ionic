@@ -74,6 +74,10 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     $http.get(url_solteros_get).success(function (data) {
         $scope.solteros = data;
     });
+    
+    $scope.numPersonas = function () {
+        return 2 * $scope.matrimonios.length + $scope.solteros.length + $scope.bajan_poco.length;
+    };
 
     $http.get(url_ausentes_get).success(function (data) {
         $scope.ausentes = data;
