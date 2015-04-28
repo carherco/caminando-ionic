@@ -54,7 +54,17 @@ angular.module('grupos.controllers', [], function($httpProvider) {
   }];
 })
 
-.controller('HermanosCtrl', function ($scope, $http) {
+.controller('LoginCtrl', function($scope, $state, sharedService) {
+  
+  $scope.login = function(user) {
+    console.log('Login', user);
+    sharedService.codigo = user;
+    $state.go('tab.hermanos');
+  };
+  
+})
+
+.controller('HermanosCtrl', function ($scope, $http, sharedService) {
 
     $scope.matrimonios = [];
     $scope.solteros = [];
@@ -149,7 +159,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
 })
 
-.controller('GruposCtrl', function ($scope, $http) {
+.controller('GruposCtrl', function ($scope, $http, sharedService) {
     
     $scope.matrimonios = [];
     $scope.solteros = [];

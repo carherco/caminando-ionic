@@ -1,0 +1,22 @@
+<ion-view view-title="Bienvenido">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Usuario</span>
+                <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Contraseña</span>
+                <input type="password" ng-model="user.password">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="login(user)">
+                Entrar
+            </button>
+            <p class="text-center">
+                <a href="#/forgot-password">Olvidé mi contraseña</a>
+            </p>
+        </div>
+    </ion-content>
+</ion-view>
