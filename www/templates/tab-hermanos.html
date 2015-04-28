@@ -15,11 +15,11 @@
                 </h3>
             </div>
 
-            <form name="matrimonioForm" ng-submit="addMatrimonio()" ng-show="showMatrimonioForm">
+            <form name="matrimonioForm"  ng-show="showMatrimonioForm">
                 <!--  Review Form -->
                 <fieldset class="form-group">
                     <input type="text" ng-model="matrimonio_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
-                    <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
+                    <button class="btn btn-primary pull-right" ng-click="addMatrimonio()" >Añadir</button>
                 </fieldset>
             </form>
 
@@ -51,10 +51,10 @@
                 </h3>
             </div>
 
-            <form name="solteroForm" ng-submit="addSoltero()" ng-show="showSolteroForm">
+            <form name="solteroForm" ng-show="showSolteroForm">
                 <fieldset class="form-group">
                   <input type="text" ng-model="soltero_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
-                  <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
+                  <button class="btn btn-primary pull-right" ng-click="addSoltero()" >Añadir</button>
                 </fieldset>
               </form>
 
@@ -82,13 +82,6 @@
             <div class="item item-divider">
                 <h3 class="panel-title">Ausentes</h3>
             </div>
-
-            <form name="solteroForm" ng-submit="addSoltero()" ng-show="showSolteroForm">
-                <fieldset class="form-group">
-                  <input type="text" ng-model="soltero_nuevo.nombre" class="form-control" placeholder="nombre" title="Nombre" />
-                  <input type="submit" class="btn btn-primary pull-right" value="Añadir" />
-                </fieldset>
-              </form>
 
             <ion-list>
                 <ion-item ng-repeat="ausente in ausentes" class="item-button-right">
