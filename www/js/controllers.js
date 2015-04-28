@@ -1,4 +1,4 @@
-var server_url = 'http://localhost/caminando/web/app_dev.php';
+var server_url = 'http://carherco.es/caminando-api/web';
 
 var url_matrimonios_get = server_url + '/matrimonios/transito7';
 var url_solteros_get = server_url + '/solteros/transito7';
