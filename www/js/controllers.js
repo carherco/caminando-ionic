@@ -47,7 +47,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 .controller('LoginCtrl', function($scope, $state, sharedService) {
   
   $scope.login = function(user) {
-    sharedService.codigo = user.username;
+    //sharedService.codigo = user.username;
     $state.go('tab.hermanos');
   };
   
@@ -57,7 +57,8 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
     var server_url = 'http://carherco.es/caminando-api/web';
     //var server_url = 'http://localhost/caminando/web/app_dev.php';
-    $scope.codigo = sharedService.codigo;
+    //$scope.codigo = sharedService.codigo;
+    $scope.codigo = 'transito7';
 
     var url_matrimonios = server_url + '/matrimonios/' + $scope.codigo;
     var url_solteros = server_url + '/solteros/' + $scope.codigo;
@@ -257,7 +258,11 @@ angular.module('grupos.controllers', [], function($httpProvider) {
             }
         }
         $scope.grupos = grupos;
-    }
+    };
+    
+    $scope.compartir = function(){
+        window.plugins.socialsharing.share('johuhuo');
+    };
 })
 
 .controller('PerfilCtrl', function ($scope) {
