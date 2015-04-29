@@ -1,13 +1,3 @@
-//var server_url = 'http://carherco.es/caminando-api/web';
-var server_url = 'http://localhost/caminando/web/app_dev.php';
-var codigo = 'transito7';
-
-var url_matrimonios = server_url + '/matrimonios/' + codigo;
-var url_solteros = server_url + '/solteros/' + codigo;
-var url_ausentes = server_url + '/ausentes/' + codigo;
-
-var url_hermanos_put = server_url + '/hermanos/put/' + codigo;
-
 angular.module('grupos.controllers', [], function($httpProvider) {
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -57,8 +47,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 .controller('LoginCtrl', function($scope, $state, sharedService) {
   
   $scope.login = function(user) {
-    console.log('Login', user);
-    sharedService.codigo = user;
+    sharedService.codigo = user.username;
     $state.go('tab.hermanos');
   };
   
@@ -66,6 +55,16 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
 .controller('HermanosCtrl', function ($scope, $http, sharedService) {
 
+    var server_url = 'http://carherco.es/caminando-api/web';
+    //var server_url = 'http://localhost/caminando/web/app_dev.php';
+    $scope.codigo = sharedService.codigo;
+
+    var url_matrimonios = server_url + '/matrimonios/' + $scope.codigo;
+    var url_solteros = server_url + '/solteros/' + $scope.codigo;
+    var url_ausentes = server_url + '/ausentes/' + $scope.codigo;
+
+    var url_hermanos_put = server_url + '/hermanos/put/' + $scope.codigo;
+    
     $scope.matrimonios = [];
     $scope.solteros = [];
     $scope.bajan_poco = [];
@@ -73,10 +72,12 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
     $http.get(url_matrimonios).success(function (data) {
         $scope.matrimonios = data;
+        sharedService.matrimonios = $scope.matrimonios;
     });
 
     $http.get(url_solteros).success(function (data) {
         $scope.solteros = data;
+        sharedService.solteros = $scope.solteros;
     });
     
     $scope.numPersonas = function () {
@@ -85,6 +86,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
     $http.get(url_ausentes).success(function (data) {
         $scope.ausentes = data;
+        sharedService.ausentes = $scope.ausentes;
     });
 
     $scope.showMatrimonioForm = false;
@@ -152,33 +154,15 @@ angular.module('grupos.controllers', [], function($httpProvider) {
         });
     };
 
-
-
-
-
-
 })
 
 .controller('GruposCtrl', function ($scope, $http, sharedService) {
     
-    $scope.matrimonios = [];
-    $scope.solteros = [];
+    $scope.matrimonios = sharedService.matrimonios;
+    $scope.solteros = sharedService.solteros;
     $scope.bajan_poco = [];
-    $scope.ausentes = [];
+    $scope.ausentes = sharedService.ausentes;
 
-    $http.get(url_matrimonios).success(function (data) {
-        $scope.matrimonios = data;
-    });
-
-    $http.get(url_solteros).success(function (data) {
-        $scope.solteros = data;
-    });
-
-    $http.get(url_ausentes).success(function (data) {
-        $scope.ausentes = data;
-    });
-    
-    
     $scope.numPersonas = function () {
         return 2 * $scope.matrimonios.length + $scope.solteros.length + $scope.bajan_poco.length;
     };
