@@ -75,14 +75,14 @@ angular.module('starter', ['ionic', 'grupos.controllers', 'grupos.services'])
     
 
   .state('tab.calendario', {
-    url: '/calendario',
-    views: {
-      'tab-perfil': {
-        templateUrl: 'templates/tab-calendario.html',
+    url: '/calendario',                                                         
+    views: {                                                                    
+      'tab-calendario': {                                                           
+        templateUrl: 'templates/tab-calendario.html',                           
         controller: 'CalendarioCtrl'
-      }
-    }
-  });
+      }                                                                         
+    }                                                                           
+  });  
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
