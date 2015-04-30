@@ -1,7 +1,7 @@
 {
-  "name": "myapp",
+  "name": "Caminando",
   "version": "1.0.0",
-  "description": "myApp: An Ionic project",
+  "description": "Caminando: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^1.3.3",
@@ -20,7 +20,6 @@
     "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "android"
   ]
 }
