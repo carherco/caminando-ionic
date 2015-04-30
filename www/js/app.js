@@ -74,12 +74,12 @@ angular.module('starter', ['ionic', 'grupos.controllers', 'grupos.services'])
     })
     
 
-  .state('tab.perfil', {
+  .state('tab.calendario', {
     url: '/calendario',
     views: {
       'tab-perfil': {
         templateUrl: 'templates/tab-calendario.html',
-        controller: 'PerfilCtrl'
+        controller: 'CalendarioCtrl'
       }
     }
   });

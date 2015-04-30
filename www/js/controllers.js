@@ -267,14 +267,21 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
     
     $scope.compartir = function(){
-        window.plugins.socialsharing.share('johuhuo');
+        
+        var mensaje = '';
+        for(g = 0; g < $scope.grupos.length; g++) {
+            mensaje += "Grupo " + (g+1) + "\n";
+            for(h = 0; h < $scope.grupos[g].length; h++) {
+                mensaje += $scope.grupos[g][h].nombre + "\n";
+            }
+            mensaje += "\n";
+        }
+        window.plugins.socialsharing.share(mensaje);
     };
 })
 
-.controller('PerfilCtrl', function ($scope) {
-    $scope.settings = {
-        enableFriends: true
-    };
+.controller('CalendarioCtrl', function ($scope) {
+    
 });
 
 
