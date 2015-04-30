@@ -44,10 +44,19 @@ angular.module('grupos.controllers', [], function($httpProvider) {
   }];
 })
 
-.controller('LoginCtrl', function($scope, $state, sharedService) {
+.controller('LoginCtrl', function($scope, $state,sharedService) {
+  
+  $scope.matrimonios = [];
+  $scope.solteros = [];
+  $scope.bajan_poco = [];
+  
+  sharedService.matrimonios = $scope.matrimonios;
+  sharedService.solteros = $scope.solteros;
+  sharedService.ausentes = $scope.bajan_poco;
   
   $scope.login = function(user) {
-    //sharedService.codigo = user.username;
+    sharedService.username = user.username;
+    sharedService.codigo = user.username;
     $state.go('tab.hermanos');
   };
   
@@ -55,18 +64,18 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
 .controller('HermanosCtrl', function ($scope, $http, urls, sharedService) {
 
-    $scope.codigo = 'transito7';
+    $scope.sharedService = sharedService;
 
-    $scope.url_matrimonios = urls.server_url + '/matrimonios/' + $scope.codigo;
-    $scope.url_solteros = urls.server_url + '/solteros/' + $scope.codigo;
-    $scope.url_ausentes = urls.server_url + '/ausentes/' + $scope.codigo;
+    $scope.url_matrimonios = urls.server_url + '/matrimonios/' + $scope.sharedService.codigo;
+    $scope.url_solteros = urls.server_url + '/solteros/' + $scope.sharedService.codigo;
+    $scope.url_ausentes = urls.server_url + '/ausentes/' + $scope.sharedService.codigo;
 
-    $scope.url_hermanos_put = urls.server_url + '/hermanos/put/' + $scope.codigo;
+    $scope.url_hermanos_put = urls.server_url + '/hermanos/put/' + $scope.sharedService.codigo;
     
-    $scope.matrimonios = [];
-    $scope.solteros = [];
+    $scope.matrimonios = sharedService.matrimonios;
+    $scope.solteros = sharedService.solteros;
     $scope.bajan_poco = [];
-    $scope.ausentes = [];
+    $scope.ausentes = sharedService.ausentes;
 
     $http.get($scope.url_matrimonios).success(function (data) {
         $scope.matrimonios = data;
@@ -77,15 +86,15 @@ angular.module('grupos.controllers', [], function($httpProvider) {
         $scope.solteros = data;
         sharedService.solteros = $scope.solteros;
     });
-    
-    $scope.numPersonas = function () {
-        return 2 * $scope.matrimonios.length + $scope.solteros.length + $scope.bajan_poco.length;
-    };
 
     $http.get($scope.url_ausentes).success(function (data) {
         $scope.ausentes = data;
         sharedService.ausentes = $scope.ausentes;
     });
+    
+    $scope.numPersonas = function () {
+        return 2 * $scope.matrimonios.length + $scope.solteros.length + $scope.bajan_poco.length;
+    };
 
     $scope.showMatrimonioForm = false;
     $scope.matrimonio_nuevo = {};
