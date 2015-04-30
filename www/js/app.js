@@ -21,6 +21,10 @@ angular.module('starter', ['ionic', 'grupos.controllers', 'grupos.services'])
   });
 })
 
+.constant('server_url', 'http://carherco.es/caminando-api/web')
+
+.service('urls',function(server_url){ this.server_url = server_url;})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states

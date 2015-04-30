@@ -53,30 +53,27 @@ angular.module('grupos.controllers', [], function($httpProvider) {
   
 })
 
-.controller('HermanosCtrl', function ($scope, $http, sharedService) {
+.controller('HermanosCtrl', function ($scope, $http, urls, sharedService) {
 
-    var server_url = 'http://carherco.es/caminando-api/web';
-    //var server_url = 'http://localhost/caminando/web/app_dev.php';
-    //$scope.codigo = sharedService.codigo;
     $scope.codigo = 'transito7';
 
-    var url_matrimonios = server_url + '/matrimonios/' + $scope.codigo;
-    var url_solteros = server_url + '/solteros/' + $scope.codigo;
-    var url_ausentes = server_url + '/ausentes/' + $scope.codigo;
+    $scope.url_matrimonios = urls.server_url + '/matrimonios/' + $scope.codigo;
+    $scope.url_solteros = urls.server_url + '/solteros/' + $scope.codigo;
+    $scope.url_ausentes = urls.server_url + '/ausentes/' + $scope.codigo;
 
-    var url_hermanos_put = server_url + '/hermanos/put/' + $scope.codigo;
+    $scope.url_hermanos_put = urls.server_url + '/hermanos/put/' + $scope.codigo;
     
     $scope.matrimonios = [];
     $scope.solteros = [];
     $scope.bajan_poco = [];
     $scope.ausentes = [];
 
-    $http.get(url_matrimonios).success(function (data) {
+    $http.get($scope.url_matrimonios).success(function (data) {
         $scope.matrimonios = data;
         sharedService.matrimonios = $scope.matrimonios;
     });
 
-    $http.get(url_solteros).success(function (data) {
+    $http.get($scope.url_solteros).success(function (data) {
         $scope.solteros = data;
         sharedService.solteros = $scope.solteros;
     });
@@ -85,7 +82,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
         return 2 * $scope.matrimonios.length + $scope.solteros.length + $scope.bajan_poco.length;
     };
 
-    $http.get(url_ausentes).success(function (data) {
+    $http.get($scope.url_ausentes).success(function (data) {
         $scope.ausentes = data;
         sharedService.ausentes = $scope.ausentes;
     });
@@ -93,7 +90,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     $scope.showMatrimonioForm = false;
     $scope.matrimonio_nuevo = {};
     $scope.addMatrimonio = function () {
-        $http.post(url_matrimonios, {nombre: $scope.matrimonio_nuevo.nombre}).success(function (data) {
+        $http.post($scope.url_matrimonios, {nombre: $scope.matrimonio_nuevo.nombre}).success(function (data) {
             $scope.matrimonio_nuevo = {'id': data.id, 'nombre': data.nombre};
             $scope.matrimonios.push($scope.matrimonio_nuevo);
             $scope.matrimonio_nuevo = {};
@@ -101,7 +98,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
     $scope.deleteMatrimonio = function (index) {
         var id = $scope.matrimonios[index].id;
-        $http.delete(url_matrimonios + '/' + id).success(function (data) {
+        $http.delete($scope.url_matrimonios + '/' + id).success(function (data) {
             $scope.matrimonios.splice(index, 1);
         });
     };
@@ -109,7 +106,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     $scope.showSolteroForm = false;
     $scope.soltero_nuevo = {};
     $scope.addSoltero = function () {
-        $http.post(url_solteros, {nombre: $scope.soltero_nuevo.nombre}).success(function (data) {
+        $http.post($scope.url_solteros, {nombre: $scope.soltero_nuevo.nombre}).success(function (data) {
             $scope.soltero_nuevo = {'id': data.id, 'nombre': data.nombre};
             $scope.solteros.push($scope.soltero_nuevo);
             $scope.soltero_nuevo = {};
@@ -117,28 +114,28 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
     $scope.deleteSoltero = function (index) {
         var id = $scope.solteros[index].id;
-        $http.delete(url_solteros + '/' + id).success(function (data) {
+        $http.delete($scope.url_solteros + '/' + id).success(function (data) {
             $scope.solteros.splice(index, 1);
         });
     };
 
     $scope.ausentarMatrimonio = function (index) {
         var id = $scope.matrimonios[index].id;
-        $http.post(url_hermanos_put + '/' + id, {ausente: 1}).success(function (data) {
+        $http.post($scope.url_hermanos_put + '/' + id, {ausente: 1}).success(function (data) {
             $scope.ausentes.push($scope.matrimonios[index]);
             $scope.matrimonios.splice(index, 1);
         });
     };
     $scope.ausentarSoltero = function (index) {
         var id = $scope.solteros[index].id;
-        $http.post(url_hermanos_put + '/' + id, {ausente: 1}).success(function (data) {
+        $http.post($scope.url_hermanos_put + '/' + id, {ausente: 1}).success(function (data) {
             $scope.ausentes.push($scope.solteros[index]);
             $scope.solteros.splice(index, 1);
         });
     };
     $scope.desAusentar = function (index) {
         var id = $scope.ausentes[index].id;
-        $http.post(url_hermanos_put + '/' + id, {ausente: 0}).success(function (data) {
+        $http.post($scope.url_hermanos_put + '/' + id, {ausente: 0}).success(function (data) {
             if (data.tipo === 'matrimonio') {
                 $scope.matrimonios.push($scope.ausentes[index]);
             } else if (data.tipo === 'soltero') {
@@ -150,7 +147,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
     $scope.deleteAusente = function (index) {
         var id = $scope.ausentes[index].id;
-        $http.delete(url_ausentes + '/' + id).success(function (data) {
+        $http.delete($scope.url_ausentes + '/' + id).success(function (data) {
             $scope.ausentes.splice(index, 1);
         });
     };
