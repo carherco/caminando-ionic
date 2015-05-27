@@ -107,7 +107,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
     $scope.deleteMatrimonio = function (index) {
         var id = $scope.matrimonios[index].id;
-        $http.delete($scope.url_matrimonios + '/' + id).success(function (data) {
+        $http.get($scope.url_matrimonios + '/' + id).success(function (data) {
             $scope.matrimonios.splice(index, 1);
         });
     };
@@ -123,7 +123,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
     $scope.deleteSoltero = function (index) {
         var id = $scope.solteros[index].id;
-        $http.delete($scope.url_solteros + '/' + id).success(function (data) {
+        $http.get($scope.url_solteros + '/' + id).success(function (data) {
             $scope.solteros.splice(index, 1);
         });
     };
@@ -156,7 +156,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 
     $scope.deleteAusente = function (index) {
         var id = $scope.ausentes[index].id;
-        $http.delete($scope.url_ausentes + '/' + id).success(function (data) {
+        $http.get($scope.url_ausentes + '/' + id).success(function (data) {
             $scope.ausentes.splice(index, 1);
         });
     };
@@ -281,7 +281,12 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 })
 
 .controller('CalendarioCtrl', function ($scope) {
-    
+//    $cordovaCalendar.findAllEventsInNamedCalendar('Cordova Calendar').then(function (result) {
+//        $scope.events = result;
+//        
+//    }, function (err) {
+//      // error
+//    });
 });
 
 
