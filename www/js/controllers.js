@@ -62,7 +62,7 @@ angular.module('grupos.controllers', [], function($httpProvider) {
   
 })
 
-.controller('HermanosCtrl', function ($scope, $http, urls, sharedService) {
+.controller('HermanosCtrl', function ($scope, $http, urls, sharedService, $ionicModal) {
 
     $scope.sharedService = sharedService;
 
@@ -121,10 +121,30 @@ angular.module('grupos.controllers', [], function($httpProvider) {
             $scope.soltero_nuevo = {};
         });
     };
-    $scope.deleteSoltero = function (index) {
-        var id = $scope.solteros[index].id;
+//    $scope.deleteSoltero = function (index) {
+//        var id = $scope.solteros[index].id;
+//        $http.get($scope.url_solteros + '/' + id).success(function (data) {
+//            $scope.solteros.splice(index, 1);
+//        });
+//    };
+
+    $scope.updateSoltero = function () {
+        var id = $scope.soltero_edit.id;
+        var index = $scope.soltero_edit.index;
+        $http.post($scope.url_hermanos_put + '/' + id, {nombre: $scope.soltero_edit.nombre}).success(function (data) {
+            $scope.solteros[index].nombre = $scope.soltero_edit.nombre;
+            $scope.closeModalSoltero();
+            $scope.soltero_edit = {};
+        });
+    };
+
+    $scope.deleteSoltero = function () {
+        var id = $scope.soltero_edit.id;
+        var index = $scope.soltero_edit.index;
         $http.get($scope.url_solteros + '/' + id).success(function (data) {
             $scope.solteros.splice(index, 1);
+            $scope.closeModalSoltero();
+            $scope.soltero_edit = {};
         });
     };
 
@@ -160,6 +180,33 @@ angular.module('grupos.controllers', [], function($httpProvider) {
             $scope.ausentes.splice(index, 1);
         });
     };
+    
+    $ionicModal.fromTemplateUrl('editar-hermano.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModalSoltero = function(index) {
+        $scope.soltero_edit = $scope.solteros[index];
+        $scope.soltero_edit.index = index;
+        $scope.modal.show();
+    };
+    $scope.closeModalSoltero = function() {
+        $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
 
 })
 

@@ -29,7 +29,7 @@
                         {{ matrimonio.nombre}}
                         &nbsp;
                         <div class="buttons">
-                            <button type="button" class="button icon ion-log-out button-energized" ng-click="ausentarMatrimonio($index)"></button>
+                            <button type="button" class="button icon ion-log-out button-royal" ng-click="ausentarMatrimonio($index)"></button>
                             <button type="button" class="button icon ion-close button-assertive" ng-click="deleteMatrimonio($index)"></button>
                         </div>
                     </ion-item>
@@ -64,8 +64,8 @@
                         {{ soltero.nombre}}
                         &nbsp;
                         <div class="buttons">
-                            <button type="button" class="button icon ion-log-out button-energized" ng-click="ausentarSoltero($index)"></button>
-                            <button type="button" class="button icon ion-close button-assertive" ng-click="deleteSoltero($index)"></button>
+                            <button type="button" class="button icon ion-log-out button-royal" ng-click="ausentarSoltero($index)"></button>
+                            <button type="button" class="button icon ion-edit button-energized" ng-click="openModalSoltero($index)"></button>
                         </div>
                     </ion-item>
                 </ion-list>
@@ -98,14 +98,30 @@
             </div>                   
 
         </div>       
-
-            
-
-      
-      
-      
-      
-      
   
   </ion-content>
 </ion-view>
+
+<script id="editar-hermano.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Editar hermano</h1>
+    </ion-header-bar>
+    <ion-content>
+      <form name="solteroEditForm" class="ng-pristine ng-valid">
+        <div class="list list-inset">
+            <label class="item item-input">
+              <input type="text" ng-model="soltero_edit.nombre" class="form-control ng-pristine ng-valid ng-touched">
+            </label>
+        </div>
+        <div class="list list-inset">
+            <button class="item button button-balanced" ng-click="updateSoltero()">Actualizar nombre</button>
+        </div>
+      </form>
+      
+      <div class="list list-inset">
+            <button class="item button button-assertive" ng-click="deleteSoltero()">Eliminar definitivamente</button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</script>
