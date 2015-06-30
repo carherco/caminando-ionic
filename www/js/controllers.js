@@ -328,18 +328,16 @@ angular.module('grupos.controllers', [], function($httpProvider) {
 })
 
 .controller('CalendarioCtrl', function ($scope, $cordovaOauth, $cordovaCalendar) {
-    $scope.googleLogin = function() {
-        $cordovaOauth.google("90254966777-hkt3dmvd5snkp2botc5e8d32ubsru9jf.apps.googleusercontent.com", ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/userinfo.email"]).then(function(result) {
-            console.log(JSON.stringify(result));
-        }, function(error) {
-            console.log(error);
-        });
-    };
     
     $scope.events = [];
+    $scope.calendars = [];
+    $scope.calendar = null;
     
     $cordovaCalendar.listCalendars().then(function (result) {
         console.log(JSON.stringify(result));
+        $scope.calendars = result;
+        var filtered_calendars = $scope.calendars.filter(function (item,index){return item.name==='Comunidad';});
+        $scope.calendar = filtered_calendars[0];
     }, function (error) {
         console.log(error);
     });

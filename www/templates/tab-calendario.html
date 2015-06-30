@@ -1,9 +1,9 @@
 <ion-view view-title="Calendario">
   <ion-content>   
       <ion-list>
-          <ion-item ng-repeat="event in events track by $index" class="item-button-right">
+          <ion-item ng-repeat="event in events |filter:{calendar_id:calendar.id} track by $index" class="item-button-right">
                 <h2>{{ event.title}}</h2>
-                <p>{{ event.dtstart | date :'fullDate' }}</p>
+                <p>{{ event.dtstart | date :"EEEE d 'de' MMMM 'a las' H:mm" }}</p>
           </ion-item>
       </ion-list>     
   </ion-content>
