@@ -327,13 +327,41 @@ angular.module('grupos.controllers', [], function($httpProvider) {
     };
 })
 
-.controller('CalendarioCtrl', function ($scope) {
-//    $cordovaCalendar.findAllEventsInNamedCalendar('Cordova Calendar').then(function (result) {
-//        $scope.events = result;
-//        
-//    }, function (err) {
-//      // error
+.controller('CalendarioCtrl', function ($scope, $cordovaOauth, $cordovaCalendar) {
+    $scope.googleLogin = function() {
+        $cordovaOauth.google("90254966777-hkt3dmvd5snkp2botc5e8d32ubsru9jf.apps.googleusercontent.com", ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/userinfo.email"]).then(function(result) {
+            console.log(JSON.stringify(result));
+        }, function(error) {
+            console.log(error);
+        });
+    };
+    
+    $scope.events = [];
+    
+    $cordovaCalendar.listCalendars().then(function (result) {
+        console.log(JSON.stringify(result));
+    }, function (error) {
+        console.log(error);
+    });
+    
+    //Este método no está disponible en Android
+//    $cordovaCalendar.findAllEventsInNamedCalendar('Carlos Herrera Conejero').then(function (result) {
+//        console.log(JSON.stringify(result));
+//    }, function (error) {
+//        console.log(error);
 //    });
+    
+    //Este método no está disponible en iOS
+    $cordovaCalendar.listEventsInRange(
+        new Date(),
+        new Date(2015, 9, 6)
+    ).then(function (result) {
+        console.log(JSON.stringify(result));
+        $scope.events = result;
+    }, function (error) {
+        console.log(error);
+    });
+
 });
 
 
