@@ -3,4 +3,3 @@ angular.module('grupos.services', [])
         return {};
     });
 
-
